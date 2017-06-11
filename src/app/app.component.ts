@@ -22,11 +22,11 @@ export class AppComponent {
 
     this.restaurants = this.af.database.list('/restaurants')
     .map(restaurants => {
-      console.log("BEFORE MAP", restaurants);
       restaurants.map(restaurant => {
-        restaurant.cuisineType = this.af.database.object('/cuisines/' + restaurant.cuisine);
+        restaurant.featureTypes =[];
+        for (var f in restaurant.features)
+        restaurant.featureTypes.push(this.af.database.object('/features/' + f));
       });
-      console.log("AFTER MAP", restaurants);
       return restaurants;
 
     });
