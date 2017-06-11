@@ -9,7 +9,7 @@ import { AngularFire } from 'angularfire2';
 export class AppComponent {
   title = 'app works!';
   cuisines;
-  private subscription;
+  restaurant;
 
   constructor(private af: AngularFire){
    
@@ -17,9 +17,8 @@ export class AppComponent {
 
   ngOnInit(){
  this.cuisines = this.af.database.list('/cuisines');
+ this.restaurant = this.af.database.object('/restaurant');
   }
 
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
-  }
+  
 }
