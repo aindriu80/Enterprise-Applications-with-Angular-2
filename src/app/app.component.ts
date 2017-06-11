@@ -36,5 +36,9 @@ export class AppComponent {
     });
   }
 
- 
+ remove() {
+    this.af.database.object('/restaurant').remove()
+    .then(x => console.log("Success"))
+    .catch(error => console.log("ERROR", error));    
+  } 
 }
