@@ -19,13 +19,22 @@ export class AppComponent {
  this.cuisines = this.af.database.list('/cuisines');
  this.restaurant = this.af.database.object('/restaurant');
   }
-add(){
-  this.cuisines.push({
-    name:'Asian',
-    details:{
-      description: '...'
-    }
-  });
-}
+
+  add(){
+    this.cuisines.push({
+      name:'Asian',
+      details:{
+        description: '...'
+      }
+    });
+  }
   
+  update() {
+    this.af.database.object('/restaurant').set({
+      name: 'New Name',
+      rating: 5
+    });
+  }
+
+ 
 }
