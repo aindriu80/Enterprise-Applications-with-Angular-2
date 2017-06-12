@@ -41,5 +41,19 @@ export class AppComponent {
     else console.log("Does Not Exist");
    });
 
+   // /restaurants
+   // /restaurants-by-city/camberwell
+
+   this.af.database.list('/restaurants').push({ name: ''})
+   .then(x => {
+    // x.key
+    let restaurant = { name: 'My New Restaurant'};
+    let update = {};
+    update['restaurants/' + x.key] = null;
+    update['restaurants-by-city/camberwell' + x.key] = null;
+
+    this.af.database.object('/').update(update);
+   });
+
   } 
 }
