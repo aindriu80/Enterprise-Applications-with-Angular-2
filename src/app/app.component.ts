@@ -1,6 +1,7 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2';
 import { Observable } from 'rxjs/observable';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 
@@ -17,7 +18,7 @@ export class AppComponent {
   displayName;
   photoUrl;
 
-  constructor(private af: AngularFire){
+  constructor(private af: AngularFire, private http: Http){
    
   }
 
@@ -28,8 +29,20 @@ export class AppComponent {
         this.photoUrl = null;
         return;
       }
-       console.log("AUTHSTATE:", authState);
+
+      let userRef = this.af.database.object('/users/'+ authState.uid);
+      userRef.subscribe(user => {
+      let url = `https://graph.facebook.com/v2.8/${authState.facebook.uid}?fields=first_name,last_name&access token=${user.accessToken}`;
+      this.http.get(url).subscribe(response => {
+        let user = response.json();
+        userRef.update({
+          firstName: user.first_name,
+          lastName: user.last_name
+          });
+        });
+       });
        
+
         this.displayName=authState.auth.displayName;
         this.photoUrl = authState.auth.photoURL;      
     
