@@ -28,6 +28,7 @@ export class AppComponent {
         this.photoUrl = null;
         return;
       }
+       console.log("AUTHSTATE:", authState);
        
         this.displayName=authState.auth.displayName;
         this.photoUrl = authState.auth.photoURL;      
@@ -73,9 +74,12 @@ export class AppComponent {
 login(){
   this.af.auth.login({
     provider: AuthProviders.Facebook,
-    method: AuthMethods.Popup
-  }).then(authState => {
-    console.log("After Login", authState);
+    method: AuthMethods.Popup,
+    scope:['email','public_profile','user_friends']
+  }).then((authState: any) => {
+   this.af.database.object('/users/'+authState.uid).update({
+     accessToken: authState.facebook.accessToken
+   })
   });
 }
 
