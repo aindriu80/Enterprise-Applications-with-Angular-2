@@ -14,12 +14,25 @@ export class AppComponent {
   cuisines: FirebaseListObservable<any[]>;
   restaurants: Observable<any[]>;
   exists;
+  displayName;
+  photoUrl;
 
   constructor(private af: AngularFire){
    
   }
 
   ngOnInit(){
+    this.af.auth.subscribe(authState =>{
+      if(!authState){
+        this.displayName = null;
+        this.photoUrl = null;
+        return;
+      }
+       
+        this.displayName=authState.auth.displayName;
+        this.photoUrl = authState.auth.photoURL;      
+    
+    });
 
   this.cuisines = this.af.database.list('/cuisines',{
     query: {

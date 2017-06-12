@@ -15,5 +15,7 @@
      </li>
 </ul>
 <h1>Implementing a Facebook Login</h1>
+<h2> Hello {{ displayName }} </h2>
+<img *ngIf="photoUrl" src="{{ photoUrl }}" alt="">
 <button (click)="login()">Login</button>
 <button (click)="logout()">Logout</button>
