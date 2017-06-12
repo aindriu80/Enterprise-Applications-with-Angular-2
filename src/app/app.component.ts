@@ -17,6 +17,7 @@ export class AppComponent {
   exists;
   displayName;
   photoUrl;
+  error;
 
   constructor(private af: AngularFire, private http: Http){
    
@@ -27,6 +28,7 @@ export class AppComponent {
       if(!authState){
         this.displayName = null;
         this.photoUrl = null;
+        authState.uid; 
         return;
       }
 
@@ -90,7 +92,7 @@ login(){
     method: AuthMethods.Popup,
     scope:['email','public_profile','user_friends']
   }).then((authState: any) => {
-   this.af.database.object('/users/'+authState.uid).update({
+   this.af.database.object('/users/'+ authState.uid).update({
      accessToken: authState.facebook.accessToken
    })
   });
@@ -98,5 +100,30 @@ login(){
 
 logout(){
   this.af.auth.logout();
-  }
+}
+
+register(){
+  this.af.auth.createUser({
+    email: 'aindriu80@gmail.com',
+    password: 'jamesbond007'
+  })
+  .then(authState =>{
+    authState.auth.sendEmailVerification();
+  })
+  .catch(error => console.log("REGISTER-ERROR", error));
+}
+emailLogin(){
+this.af.auth.login({
+  email: 'aindriu80@gmail.com',
+  password: 'jamesbond007'
+}, {
+  method: AuthMethods.Password,
+  provider: AuthProviders.Password
+})
+.then(authState => console.log("LOGIN-THEN", authState))
+.catch(error => this.error = error.message);
+}
+emailLogout(){
+  this.af.auth.logout();
+}
 }
