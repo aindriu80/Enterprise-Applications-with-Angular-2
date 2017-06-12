@@ -28,7 +28,8 @@ export class AppComponent {
   this.restaurants = this.af.database.list('/restaurants',{
     query:{
       orderByChild: 'rating',
-     equalTo: 5
+     equalTo: 5,
+     limitToFirst: 50
     }
   });
 
