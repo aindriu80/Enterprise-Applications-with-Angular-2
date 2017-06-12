@@ -28,9 +28,7 @@ export class AppComponent {
   this.restaurants = this.af.database.list('/restaurants',{
     query:{
       orderByChild: 'rating',
-     
-      startAt: 3,
-      endAt: 4
+     equalTo: 5
     }
   });
 
