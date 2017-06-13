@@ -130,4 +130,8 @@ this.af.auth.login({
 emailLogout(){
   this.af.auth.logout();
 }
+
+showProfile(){
+  console.log(this.auth.userProfile);
+}
 }
