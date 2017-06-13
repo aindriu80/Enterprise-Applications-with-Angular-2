@@ -21,3 +21,6 @@
 <button (click)="emailLogin()">Login</button>
 <button (click)="emailLogout()">Logout</button>
 <div *ngIf="error">{{ error }}</div>
+
+<button *ngIf="!auth.isAuthenticated()"(click)="auth.login()">Login</button>
+<button *ngIf="auth.isAuthenticated()"(click)="auth.logout()">Logout</button>

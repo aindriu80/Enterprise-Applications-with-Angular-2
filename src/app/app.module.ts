@@ -6,7 +6,11 @@ import { AngularFireModule} from 'angularfire2';
 
 import { AppComponent } from './app.component';
 
-export const firebaseConfig = {
+import { Auth } from './auth.service';
+
+import { AUTH_PROVIDERS} from 'angular2-jwt';
+
+  export const firebaseConfig = {
   apiKey: "AIzaSyAOD872mFctgQiDOVdAdZwG7eGRljhJbLM",
     authDomain: "pepper-47154.firebaseapp.com",
     databaseURL: "https://pepper-47154.firebaseio.com",
@@ -23,9 +27,10 @@ export const firebaseConfig = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+     AngularFireModule.initializeApp(firebaseConfig)
+   
   ],
-  providers: [],
+  providers: [Auth, AUTH_PROVIDERS ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,8 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2';
 import { Observable } from 'rxjs/observable';
 import { Http } from '@angular/http';
+import { Auth } from './auth.service';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 
@@ -12,6 +14,7 @@ import 'rxjs/add/operator/take';
 })
 export class AppComponent {
   title = 'app works!';
+
   cuisines: FirebaseListObservable<any[]>;
   restaurants: Observable<any[]>;
   exists;
@@ -19,16 +22,17 @@ export class AppComponent {
   photoUrl;
   error;
 
-  constructor(private af: AngularFire, private http: Http){
+  constructor(private af: AngularFire, private http: Http, private auth: Auth){
    
   }
 
   ngOnInit(){
     this.af.auth.subscribe(authState =>{
+
       if(!authState){
         this.displayName = null;
         this.photoUrl = null;
-        authState.uid; 
+        
         return;
       }
 
