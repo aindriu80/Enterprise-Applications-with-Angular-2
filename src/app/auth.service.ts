@@ -15,7 +15,7 @@ export class Auth {
 
   constructor() {
     this.lock.on('authenticated',authResult =>{
-      localStorage.setItem('id_token', authResult.idToken);
+      localStorage.setItem('token', authResult.idToken);
     });
   }
 
@@ -26,6 +26,6 @@ export class Auth {
     return tokenNotExpired();
   }
   public logout(){
-    localStorage.removeItem('id_token');
+    localStorage.removeItem('token');
   }
 }
