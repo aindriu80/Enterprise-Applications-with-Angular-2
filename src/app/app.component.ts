@@ -3,6 +3,7 @@ import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 
 import { Observable } from 'rxjs/observable';
 import { Http } from '@angular/http';
 import { Auth } from './auth.service';
+import { AuthHttp } from 'angular2-jwt';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
@@ -22,7 +23,7 @@ export class AppComponent {
   photoUrl;
   error;
 
-  constructor(private af: AngularFire, private http: Http, private auth: Auth){
+  constructor(private af: AngularFire, private http: Http, private auth: Auth, private authHttp: AuthHttp){
    
   }
 
@@ -116,6 +117,7 @@ register(){
   })
   .catch(error => console.log("REGISTER-ERROR", error));
 }
+
 emailLogin(){
 this.af.auth.login({
   email: 'aindriu80@gmail.com',
@@ -127,11 +129,25 @@ this.af.auth.login({
 .then(authState => console.log("LOGIN-THEN", authState))
 .catch(error => this.error = error.message);
 }
+
 emailLogout(){
   this.af.auth.logout();
 }
 
 showProfile(){
   console.log(this.auth.userProfile);
+}
+
+updateProfile(){
+  var url = 'https://' + 'aindriu80.eu.auth0.com' + '/api/v2/users/' + this.auth.userProfile.user_id;
+  var data = {
+      user_metadata:{
+        location: 'Dublin'
+      }
+  };
+  this.authHttp.patch(url, data)
+  .subscribe(res => {
+    console.log(res.json());
+  });
 }
 }
