@@ -1,9 +1,12 @@
+import { IAppState, rootReducer } from './store';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule} from 'angularfire2';
 
+import {NgRedux, NgReduxModule} from 'ng2-redux'
+ 
 import { AppComponent } from './app.component';
 
 import { Auth } from './auth.service';
@@ -27,10 +30,15 @@ import { AUTH_PROVIDERS} from 'angular2-jwt';
     BrowserModule,
     FormsModule,
     HttpModule,
+    NgReduxModule,
      AngularFireModule.initializeApp(firebaseConfig)
    
   ],
   providers: [Auth, AUTH_PROVIDERS ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  construtor(ngRedux: NgRedux<IAppState>){
+    ngRedux.configureStore(rootReducer, {});
+  }
+ }
