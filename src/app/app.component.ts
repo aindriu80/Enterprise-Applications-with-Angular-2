@@ -150,4 +150,9 @@ updateProfile(){
     console.log(res.json());
   });
 }
+
+ callApi(){
+   this.authHttp.get('http://localhost:8080/authorized')
+   .subscribe(res => console.log(res));
+ }
 }

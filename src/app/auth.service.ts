@@ -9,20 +9,19 @@ declare var Auth0Lock: any;
 export class Auth {
   userProfile;
   lock = new Auth0Lock('HXx0xWMWLGq0sYsG4P2R8nUHMRiXyi4J','aindriu80.eu.auth0.com', {
-    additionalSignUpFields: [
+    additionalSignUpFields:[
       {
-        name: 'Location',
+        name:'Location',
         placeholder: 'Where do you live?',
         validator: function(value){
           return {
-            valid: value.length >= 5,
+            valid: value.length >=5,
             hint: 'Address should be a minimum of 5 characters'
           };
         }
       }
     ]
-  });
-
+ });
 
 
 
@@ -30,10 +29,12 @@ export class Auth {
   constructor() {
     this.userProfile = JSON.parse(localStorage.getItem('profile'));
 
-    this.lock.on('authenticated',authResult =>{
-      localStorage.setItem('token', authResult.idToken);
+    this.lock.on('authenticated', authResult => {
+      console.log("AUTH", authResult);
+      
+      localStorage.setItem('id_token', authResult.accessToken);
 
-      this.lock.getProfile(authResult.idToken, (error, profile) =>{
+      this.lock.getUserInfo(authResult.accessToken, (error, profile) =>{
         if (error){
           console.log("ERROR",error);
           return;
@@ -52,7 +53,7 @@ export class Auth {
     return tokenNotExpired();
   }
   public logout(){
-    localStorage.removeItem('token');
+    localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     this.userProfile = null;
   }
