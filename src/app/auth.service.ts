@@ -7,6 +7,9 @@ declare var Auth0Lock: any;
 
 @Injectable()
 export class Auth {
+
+  
+
   userProfile;
   lock = new Auth0Lock('HXx0xWMWLGq0sYsG4P2R8nUHMRiXyi4J','aindriu80.eu.auth0.com', {
     additionalSignUpFields:[
@@ -36,7 +39,7 @@ export class Auth {
 
       this.lock.getUserInfo(authResult.accessToken, (error, profile) =>{
         if (error){
-          console.log("ERROR",error);
+          console.log("ERROR", error);
           return;
         }
         

@@ -27,3 +27,5 @@
 <button *ngIf="auth.isAuthenticated()" (click)="showProfile()">Show Profile - Auth0</button>
 <button *ngIf="auth.isAuthenticated()" (click)="updateProfile()">Update Profile - Auth0</button>
 <button *ngIf="auth.isAuthenticated()" (click)="callApi()">Call API - Auth0</button>
+<p>Counter: {{ counter }} </p>
+<button (click)="increment()">Increment</button>

@@ -1,9 +1,13 @@
+import { IAppState } from './store';
+import { NgRedux } from 'ng2-redux';
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2';
 import { Observable } from 'rxjs/observable';
 import { Http } from '@angular/http';
 import { Auth } from './auth.service';
 import { AuthHttp } from 'angular2-jwt';
+import { INCREMENT } from './actions';
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
@@ -15,7 +19,7 @@ import 'rxjs/add/operator/take';
 })
 export class AppComponent {
   title = 'app works!';
-
+  counter = 0;
   cuisines: FirebaseListObservable<any[]>;
   restaurants: Observable<any[]>;
   exists;
@@ -23,10 +27,17 @@ export class AppComponent {
   photoUrl;
   error;
 
-  constructor(private af: AngularFire, private http: Http, private auth: Auth, private authHttp: AuthHttp){
+
+
+  constructor(private af: AngularFire, private http: Http, private auth: Auth, 
+              private authHttp: AuthHttp, private ngRedux:NgRedux<IAppState>) {
    
   }
 
+  increment(){
+   // this.counter++;
+   this.ngRedux.dispatch({ type: INCREMENT});
+  }
   ngOnInit(){
     this.af.auth.subscribe(authState =>{
 
