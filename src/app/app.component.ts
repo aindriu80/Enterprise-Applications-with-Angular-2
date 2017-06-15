@@ -20,8 +20,7 @@ import 'rxjs/add/operator/take';
 export class AppComponent {
   title = 'app works!';
   @select('counter') count;
-  @select(['messaging', 'newMessages']) newMessages;
-  @select((s:IAppState) => s.messaging.newMessages) newMessagesCount;
+
   cuisines: FirebaseListObservable<any[]>;
   restaurants: Observable<any[]>;
   exists;
