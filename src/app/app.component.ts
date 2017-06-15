@@ -20,6 +20,8 @@ import 'rxjs/add/operator/take';
 export class AppComponent {
   title = 'app works!';
   @select('counter') count;
+  @select(['messaging', 'newMessages']) newMessages;
+  @select((s:IAppState) => s.messaging.newMessages) newMessagesCount;
   cuisines: FirebaseListObservable<any[]>;
   restaurants: Observable<any[]>;
   exists;
@@ -32,13 +34,15 @@ export class AppComponent {
   constructor(private af: AngularFire, private http: Http, private auth: Auth, 
               private authHttp: AuthHttp, private ngRedux: NgRedux<IAppState>) {
               
+              
    
   }
 
   increment(){
-   // this.counter++;
+   // this.count++;
    this.ngRedux.dispatch({ type: INCREMENT });
   }
+
   ngOnInit(){
     this.af.auth.subscribe(authState =>{
 
