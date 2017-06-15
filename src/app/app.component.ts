@@ -7,6 +7,7 @@ import { Http } from '@angular/http';
 import { Auth } from './auth.service';
 import { AuthHttp } from 'angular2-jwt';
 import { INCREMENT } from './actions';
+import { Map } from 'immutable';
 
 
 import 'rxjs/add/operator/map';
@@ -19,7 +20,7 @@ import 'rxjs/add/operator/take';
 })
 export class AppComponent {
   title = 'app works!';
-  @select('counter') count;
+  @select(s => s.get('counter')) count;
 
   cuisines: FirebaseListObservable<any[]>;
   restaurants: Observable<any[]>;
@@ -31,7 +32,7 @@ export class AppComponent {
 
 
   constructor(private af: AngularFire, private http: Http, private auth: Auth, 
-              private authHttp: AuthHttp, private ngRedux: NgRedux<IAppState>) {
+              private authHttp: AuthHttp, private ngRedux: NgRedux<Map<string, any>>) {
               
               
    

@@ -3,9 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { AngularFireModule} from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
 
-import {NgRedux, NgReduxModule} from 'ng2-redux'
+import { NgRedux, NgReduxModule } from 'ng2-redux'
+import { fromJS, Map } from 'immutable';
  
 import { AppComponent } from './app.component';
 
@@ -38,7 +39,7 @@ import { AUTH_PROVIDERS} from 'angular2-jwt';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  construtor(ngRedux: NgRedux<IAppState>){
-    ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  construtor(ngRedux: NgRedux<Map<string, any>>){
+    ngRedux.configureStore(rootReducer, fromJS(INITIAL_STATE));
   }
  }
