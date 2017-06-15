@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 
-import { NgRedux, NgReduxModule } from 'ng2-redux'
+import { NgRedux, NgReduxModule, DevToolsExtension } from 'ng2-redux'
 import { fromJS, Map } from 'immutable';
  
 import { AppComponent } from './app.component';
@@ -39,7 +39,10 @@ import { AUTH_PROVIDERS} from 'angular2-jwt';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  construtor(ngRedux: NgRedux<Map<string, any>>){
+  construtor(
+    ngRedux: NgRedux<Map<string, any>>,
+    devTools: DevToolsExtension){
+      
     ngRedux.configureStore(rootReducer, fromJS(INITIAL_STATE));
   }
  }
